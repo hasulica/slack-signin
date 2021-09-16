@@ -49,6 +49,9 @@ export default NextAuth({
     Providers.Slack({
       clientId: process.env.SLACK_CLIENT_ID,
       clientSecret: process.env.SLACK_CLIENT_SECRET,
+      authorizationParams: {
+        user_scope: "identity.basic,identity.email,identity.avatar,profile",
+      },
     }),
   ],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
