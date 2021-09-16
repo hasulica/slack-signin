@@ -2,6 +2,8 @@ import Layout from "../components/layout";
 import Head from "next/head";
 import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
+import styles from "../components/header.module.css";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 const BoardEditor = dynamic(
   () => import("@vestaboard/installables").then((mod) => mod.BoardEditor),
@@ -53,7 +55,6 @@ function Home() {
       <main>
         <div className="content">
           <img className="header" src="header.png"></img>
-
           <BoardEditor
             style={{ width: "100%" }}
             boardValue={value}
@@ -68,9 +69,62 @@ function Home() {
 }
 
 export default function Page() {
+  const [session, loading] = useSession();
+
   return (
     <Layout>
-      <Home />
+      <div className={styles.signedInStatus}>
+        <p
+          className={`nojs-show ${
+            !session && loading ? styles.loading : styles.loaded
+          }`}
+        >
+          {!session && (
+            <>
+              <span className={styles.notSignedInText}>
+                You are not signed in
+              </span>
+              <a
+                href={`/api/auth/signin`}
+                className={styles.buttonPrimary}
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn("slack");
+                }}
+              >
+                Sign in
+              </a>
+            </>
+          )}
+          {session && (
+            <>
+              {session.user.image && (
+                <span
+                  style={{ backgroundImage: `url(${session.user.image})` }}
+                  className={styles.avatar}
+                />
+              )}
+              <span className={styles.signedInText}>
+                <small>Signed in as</small>
+                <br />
+                <strong>{session.user.name}</strong>
+                <p>{JSON.stringify(session)}</p>
+              </span>
+              <Home />
+              <a
+                href={`/api/auth/signout`}
+                className={styles.button}
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign out
+              </a>
+            </>
+          )}
+        </p>
+      </div>
     </Layout>
   );
 }
