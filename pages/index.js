@@ -10,8 +10,7 @@ const BoardEditor = dynamic(
   }
 );
 
-
-export default function Home() {
+function Home() {
   const sendMessage = async () => {
     const response = await fetch(`/api/message`, {
       method: "post",

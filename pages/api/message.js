@@ -15,6 +15,7 @@ export default async (req, res) => {
         },
       }
     );
+    console.log(response);
     res.send();
     if (response.status === 200) {
       res.status(200).end();
