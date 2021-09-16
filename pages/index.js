@@ -43,27 +43,14 @@ function Home() {
   useEffect(async () => {}, [value]);
 
   return (
-    <div>
-      <Head>
-        <title>Annoy Radu</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        />
-      </Head>
-      <main>
-        <div className="content">
-          <img className="header" src="header.png"></img>
-          <BoardEditor
-            style={{ width: "100%" }}
-            boardValue={value}
-            setBoardValue={setValue}
-            onSend={() => sendMessage()}
-            className="board-editor"
-          ></BoardEditor>
-        </div>
-      </main>
+    <div className="content">
+      <BoardEditor
+        style={{ width: "100%" }}
+        boardValue={value}
+        setBoardValue={setValue}
+        onSend={() => sendMessage()}
+        className="board-editor"
+      ></BoardEditor>
     </div>
   );
 }
@@ -73,6 +60,14 @@ export default function Page() {
 
   return (
     <Layout>
+      <Head>
+        <title>Annoy Radu</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+      </Head>
       <div className={styles.signedInStatus}>
         <p
           className={`nojs-show ${
@@ -108,7 +103,6 @@ export default function Page() {
                 <small>Signed in as</small>
                 <br />
                 <strong>{session.user.name}</strong>
-                <p>{JSON.stringify(session)}</p>
               </span>
               <Home />
               <a
