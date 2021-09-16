@@ -48,6 +48,7 @@ export default function Header() {
                 <small>Signed in as</small>
                 <br />
                 <strong>{session.user.name}</strong>
+                <p>{JSON.stringify(session.user)}</p>
               </span>
               <a
                 href={`/api/auth/signout`}
