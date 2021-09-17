@@ -28,7 +28,8 @@ function Home(userName) {
     });
     if (response.status === 200) {
       setShowSentAlert(true);
-      setTimeout(() => setShowSentAlert(false), 4000);
+      setTimeout(() => setShowSentAlert(false), 3000);
+      setValue("");
     } else {
     }
   };
@@ -54,6 +55,7 @@ function Home(userName) {
         onSend={() => sendMessage()}
         className="board-editor"
       ></BoardEditor>
+      {showSentAlert && <div>Message sent successfully!</div>}
     </div>
   );
 }
