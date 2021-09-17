@@ -77,8 +77,6 @@ export default function Page() {
             !session && loading ? styles.loading : styles.loaded
           }`}
         >
-          <Home userName={""} />
-
           {!session && (
             <>
               <span className={styles.notSignedInText}>
