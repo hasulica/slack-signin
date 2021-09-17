@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import styles from "../components/header.module.css";
 import { signIn, signOut, useSession } from "next-auth/client";
+import { text } from "dom-helpers";
 
 const BoardEditor = dynamic(
   () => import("@vestaboard/installables").then((mod) => mod.BoardEditor),
@@ -29,7 +30,7 @@ function Home(userName) {
     if (response.status === 200) {
       setShowSentAlert(true);
       setTimeout(() => setShowSentAlert(false), 3000);
-      setValue(encodingFunction(""));
+      textarea.value = "";
     } else {
     }
   };
