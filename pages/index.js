@@ -12,11 +12,16 @@ const BoardEditor = dynamic(
   }
 );
 
-function Home() {
+function Home(userName) {
   const sendMessage = async () => {
+    let textarea = document.getElementsByTagName("textarea")[0];
     const response = await fetch(`/api/message`, {
       method: "post",
-      body: JSON.stringify(value),
+      body: JSON.stringify({
+        author: userName,
+        text: textarea.value,
+        value: value,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -39,8 +44,6 @@ function Home() {
     const encodingFunction = importedLib.encodeBoardCharacters;
     setValue(encodingFunction(""));
   }, []);
-
-  useEffect(async () => {}, [value]);
 
   return (
     <div className="content">
@@ -74,6 +77,8 @@ export default function Page() {
             !session && loading ? styles.loading : styles.loaded
           }`}
         >
+          <Home userName={""} />
+
           {!session && (
             <>
               <span className={styles.notSignedInText}>
@@ -104,7 +109,7 @@ export default function Page() {
                 <br />
                 <strong>{session.user.name}</strong>
               </span>
-              <Home />
+              <Home userName={session.user.name} />
               <a
                 href={`/api/auth/signout`}
                 className={styles.button}
