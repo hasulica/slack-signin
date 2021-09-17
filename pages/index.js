@@ -29,7 +29,7 @@ function Home(userName) {
     if (response.status === 200) {
       setShowSentAlert(true);
       setTimeout(() => setShowSentAlert(false), 3000);
-      setValue("");
+      setValue(encodingFunction(""));
     } else {
     }
   };
